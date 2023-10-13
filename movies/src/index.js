@@ -5,8 +5,6 @@ import HomePage from "./pages/homePage";
 import MoviePage from "./pages/movieDetailsPage";
 import FavoriteMoviesPage from "./pages/favoriteMoviesPage";
 
-
-
 const images = [
     "/kOVEVeg59E0wsnXmF9nrh6OmWII.jpg",
     "/v1QQKq8M0fWxMgSdGOX1aCv8qMB.jpg",
