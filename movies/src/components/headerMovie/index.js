@@ -5,9 +5,11 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import HomeIcon from "@mui/icons-material/Home";
+import { useNavigate } from "react-router-dom";
 
 const MovieHeader = (props) => {
     const movie = props.movie;
+    const navigate = useNavigate();
 
     return (
         <Paper
@@ -21,7 +23,7 @@ const MovieHeader = (props) => {
                 margin: 0,
             }}
         >
-            <IconButton aria-label="go back">
+            <IconButton aria-label="go back" onClick={() => navigate(-1)} >
                 <ArrowBackIcon color="primary" fontSize="large" />
             </IconButton>
 
@@ -31,12 +33,10 @@ const MovieHeader = (props) => {
                     <HomeIcon color="primary" />
                 </a>
                 <br />
-                <Typography sx={{ fontSize: "1.5rem" }}>
-                    {`   "${movie.tagline}"`}
-                </Typography>
-                {/*<span sx={{ fontSize: "1.5rem" }}>{`   "${movie.tagline}"`} </span>*/}
+                <span sx={{ fontSize: "1.5rem" }}>{`   "${movie.tagline}"`} </span>
             </Typography>
-            <IconButton aria-label="go forward">
+
+            <IconButton aria-label="go forward" onClick={() => navigate(+1) } >
                 <ArrowForwardIcon color="primary" fontSize="large" />
             </IconButton>
         </Paper>
