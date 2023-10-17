@@ -9,7 +9,7 @@ const Header = (props ) => {
     const title = props.title
     return (
         <Paper
-            elevation={3}
+            elevation={5}
             component="div"
             sx={{
                 display: "flex",

@@ -11,6 +11,7 @@ const MovieHeader = (props) => {
 
     return (
         <Paper
+            elevation={5}
             component="div"
             sx={{
                 display: "flex",
