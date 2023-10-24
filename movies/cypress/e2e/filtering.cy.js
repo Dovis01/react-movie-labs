@@ -55,6 +55,30 @@ describe("Filtering", () => {
         });
     });
     describe("Combined genre and title", () => {
-        // TODO
+        it("show movies with the selected genre and 't' in the title", () => {
+            const selectedGenreId = 53;
+            const selectedGenreText = "Thriller";
+            const searchString = "t";
+            const matchingMoviesByGenre = filterByGenre(movies, selectedGenreId);
+            const matchingMoviesByGenreAndTitle = filterByTitle(matchingMoviesByGenre, searchString);
+            cy.get("#filled-search").clear().type(searchString); // Enter m in text box
+            cy.get("#genre-select").click();
+            cy.get("li").contains(selectedGenreText).click();
+            cy.get(".MuiCardHeader-content").should(
+                "have.length",
+                matchingMoviesByGenreAndTitle.length
+            );
+            cy.get(".MuiCardHeader-content").each(($card, index) => {
+                cy.wrap($card).find("p").contains(matchingMoviesByGenreAndTitle[index].title);
+            });
+        });
+        it("handles case when movies with the selected genre are no matches on titles", () => {
+            const searchString = "xyxxzyyzz";
+            const selectedGenreText = "Action";
+            cy.get("#filled-search").clear().type(searchString); // Enter m in text box
+            cy.get("#genre-select").click();
+            cy.get("li").contains(selectedGenreText).click();
+            cy.get(".MuiCardHeader-content").should("have.length", 0);
+        });
     });
 });
