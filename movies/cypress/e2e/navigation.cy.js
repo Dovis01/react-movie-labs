@@ -48,9 +48,52 @@ describe("Navigation", () => {
             }
         );
     });
+
+
     describe("From the favourites page to a movie's details", () => {
-        // TODO
+        beforeEach(() => {
+            cy.get("button[aria-label='add to favorites']").eq(1).click();
+            cy.get("button[aria-label='add to favorites']").eq(3).click();
+            cy.get("button[aria-label='add to favorites']").eq(5).click();
+            cy.get("button[aria-label='add to favorites']").eq(6).click();
+        });
+        describe("when the viewport is desktop scale", () => {
+            beforeEach(() => {
+                cy.get("button").contains("Favorites").click();
+            });
+            it("navigating between the Favourite movies page and the movie details page via the button links.", () => {
+                cy.get(".MuiCardActions-root").eq(3).contains("More Info").click();
+                cy.url().should("include", `/movies/${movies[6].id}`);
+                cy.get("svg[data-testid='ArrowBackIcon'").click();
+                cy.url().should("include", `/movies/favorites`);
+                cy.get("svg[data-testid='ArrowForwardIcon'").click();
+                cy.url().should("include", `/movies/${movies[6].id}`);
+            });
+        });
+        describe(
+            "when the viewport is mobile scale",
+            {
+                viewportHeight: 896,
+                viewportWidth: 414,
+            },
+            () => {
+                beforeEach(() => {
+                    cy.get("header").find("button").click();
+                    cy.get("li").contains('Favorites').click();
+                });
+                it("navigating between the Favourite movies page and the movie details page via the dropdown menu.", () => {
+                    cy.get(".MuiCardActions-root").eq(2).contains("More Info").click({force: true});
+                    cy.url().should("include", `/movies/${movies[5].id}`);
+                    cy.get("svg[data-testid='ArrowBackIcon'").click({force: true});
+                    cy.url().should("include", `/movies/favorites`);
+                    cy.get("svg[data-testid='ArrowForwardIcon'").click({force: true});
+                    cy.url().should("include", `/movies/${movies[5].id}`);
+                });
+            }
+        );
     });
+
+
     describe("The forward/backward links", () => {
         beforeEach(() => {
             cy.get(".MuiCardActions-root").eq(0).contains("More Info").click();
