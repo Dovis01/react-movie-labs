@@ -7,7 +7,7 @@ import {useQuery} from "react-query";
 import Spinner from "../components/spinner";
 
 const UpcomingMoviesPage = () => {
-
+    //have done for using react-query
     const {data, error, isLoading, isError} = useQuery(
         "upcoming",
         getUpcomingMovies
