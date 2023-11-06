@@ -6,8 +6,13 @@ import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 const AddToWatchListIcon = ({ movie }) => {
     const context = useContext(MoviesContext);
 
+    const handleAddToWatchList = (e) => {
+        e.preventDefault();
+        context.addToWatchList(movie);
+    };
+
     return (
-        <IconButton aria-label="add to watch" >
+        <IconButton aria-label="add to watch" onClick={handleAddToWatchList}>
             <PlaylistAddIcon color="primary" fontSize="large" />
         </IconButton>
     );
